@@ -1,0 +1,72 @@
+*,
+*:before,
+*:after
+{
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+
+body
+{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+
+    display: flex;
+
+    min-height: 100vh;
+
+    flex-flow: column;
+}
+
+main
+{
+    display: flex;
+
+    flex-flow: row wrap;
+    justify-content: center;
+    flex: 1;
+}
+
+footer
+{
+    display: flex;
+}
+
+.table
+{
+    display: flex;
+
+    width: 20em;
+    height: 20em;
+    margin-right: auto;
+    margin-left: auto;
+
+    border: 2px solid black;
+
+    flex-flow: row wrap;
+}
+
+.cell
+{
+    width: 10%;
+    height: 10%;
+
+    cursor: pointer;
+    transition: 1s;
+    text-align: center;
+}
+
+.cell:hover
+{
+    background: green !important;
+}
+
+.buttons
+{
+    display: flex;
+
+    width: 100vw;
+
+    flex-flow: row wrap;
+}
