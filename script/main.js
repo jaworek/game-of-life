@@ -1,9 +1,21 @@
 var x;
 var y;
 var table;
+var tableTemporary;
 var row;
 
 function load()
+{
+    createTable();
+    displayTable();
+    var button = document.getElementById('button');
+    button.addEventListener('click', updateTable);
+
+    /*var element = document.getElementById('id00');
+    element.addEventListener('click', changeState);*/
+}
+
+function createTable()
 {
     x = 10;
     y = 10;
@@ -12,27 +24,61 @@ function load()
     {
         table[i] = new Array(y);
     }
-    createTable();
-    displayTable();
-
-    var element = document.getElementById('id00');
-    element.addEventListener('click', changeState);
-}
-
-function createTable()
-{
-    for (var i = 0; i < x; i++)
+    for (var j = 0; j < x; j++)
     {
-        for (var j = 0; j < y; j++)
+        for (var k = 0; k < y; k++)
         {
-            table[i][j] = 0;
+            table[j][k] = 0;
         }
     }
 }
 
 function updateTable()
 {
-
+    var count = 0;
+    for (var i = 1; i < x - 1; i++)
+    {
+        for (var j = 1; j < y - 1; j++)
+        {
+            if (table[i - 1][j] === 1)
+            {
+                count++;
+            }
+            if (table[i + 1][j] === 1)
+            {
+                count++;
+            }
+            if (table[i][j - 1] === 1)
+            {
+                count++;
+            }
+            if (table[i][j + 1] === 1)
+            {
+                count++;
+            }
+            if (table[i - 1][j - 1] === 1)
+            {
+                count++;
+            }
+            if (table[i - 1][j + 1] === 1)
+            {
+                count++;
+            }
+            if (table[i + 1][j - 1] === 1)
+            {
+                count++;
+            }
+            if (table[i + 1][j + 1] === 1)
+            {
+                count++;
+            }
+            if (i === 1 && j === 1)
+            {
+                console.log(count);
+            }
+            count = 0;
+        }
+    }
 }
 
 function displayTable()
@@ -43,7 +89,7 @@ function displayTable()
         for (var j = 0; j < y; j++)
         {
             var id = 'id' + i + j;
-            row = row + '<div class="cell" id="' + id + '">' + table[i][j] + '</div>';
+            row = row + '<div class="cell" id="' + id + '" onclick="changeState(' + i + ',' + j + ')"></div>';
         }
     }
     document.getElementById('table').innerHTML = row;
@@ -69,17 +115,17 @@ function setColor()
     }
 }
 
-function changeState()
+function changeState(x, y)
 {
-    if (table[0][0] === 0)
+    var i = x;
+    var j = y;
+    if (table[i][j] === 0)
     {
-        table[0][0] = 1;
-        console.log(table[0][0]);
+        table[i][j] = 1;
     }
-    else if (table[0][0] === 1)
+    else if (table[i][j] === 1)
     {
-        table[0][0] = 0;
-        console.log(table[0][0]);
+        table[i][j] = 0;
     }
     setColor();
 }

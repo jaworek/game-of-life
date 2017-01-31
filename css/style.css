@@ -2,9 +2,7 @@
 *:before,
 *:after
 {
-    -webkit-box-sizing: border-box;
-       -moz-box-sizing: border-box;
-            box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 body
@@ -13,25 +11,26 @@ body
     font-weight: 300;
 
     display: flex;
+    flex-direction: column;
 
     min-height: 100vh;
+}
 
-    flex-flow: column;
+header
+{
+    padding: 1em;
 }
 
 main
 {
-    display: flex;
+    padding: .5em;
 
     flex-flow: row wrap;
     justify-content: center;
     flex: 1;
 }
 
-footer
-{
-    display: flex;
-}
+
 
 .table
 {
@@ -39,7 +38,9 @@ footer
 
     width: 20em;
     height: 20em;
+    margin-top: 2em;
     margin-right: auto;
+    margin-bottom: 2em;
     margin-left: auto;
 
     border: 2px solid black;
@@ -53,13 +54,15 @@ footer
     height: 10%;
 
     cursor: pointer;
-    transition: 1s;
+    transition: .5s;
     text-align: center;
+
+    border: 1px solid rgb(199, 199, 199);
 }
 
 .cell:hover
 {
-    background: green !important;
+    filter: brightness(50%);
 }
 
 .buttons
@@ -67,6 +70,15 @@ footer
     display: flex;
 
     width: 100vw;
+    height: 2em;
 
     flex-flow: row wrap;
+    justify-content: center;
+}
+
+.button
+{
+    margin-right: .25em;
+    margin-left: .25em;
+    width: 10em;
 }
