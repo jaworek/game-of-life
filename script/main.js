@@ -4,6 +4,7 @@ var table;
 var tableTemporary;
 var row;
 var timer;
+var run = false;
 
 function load()
 {
@@ -19,8 +20,8 @@ function load()
 
 function createTable()
 {
-    x = 10;
-    y = 10;
+    x = 20;
+    y = 20;
     table = new Array(x);
     tableTemporary = new Array(x);
     for (var i = 0; i < x; i++)
@@ -46,6 +47,7 @@ function resetTable()
             table[i][j] = 0;
         }
     }
+    run = false;
     setColor();
 }
 
@@ -121,12 +123,14 @@ function mergeTables()
 function displayTable()
 {
     row = '';
+    var z = 0;
     for (var i = 0; i < x; i++)
     {
         for (var j = 0; j < y; j++)
         {
-            var id = 'id' + i + j;
+            var id = 'id' + z;
             row = row + '<div class="cell" id="' + id + '" onclick="changeState(' + i + ',' + j + ')"></div>';
+            z++;
         }
     }
     document.getElementById('table').innerHTML = row;
@@ -135,11 +139,12 @@ function displayTable()
 
 function setColor()
 {
+  var z = 0;
     for (var i = 0; i < x; i++)
     {
         for (var j = 0; j < y; j++)
         {
-            var id = 'id' + i + j;
+            var id = 'id' + z;
             if (table[i][j] === 0)
             {
                 document.getElementById(id).style.backgroundColor = 'white';
@@ -148,7 +153,18 @@ function setColor()
             {
                 document.getElementById(id).style.backgroundColor = 'black';
             }
+            z++;
         }
+    }
+
+    var runButton = document.getElementById('run');
+    if (run === true)
+    {
+        runButton.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i> Pause';
+    }
+    if (run === false)
+    {
+        runButton.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i> Run';
     }
 }
 
@@ -171,7 +187,8 @@ function runFunction()
 {
     clearInterval(timer);
     timer = setInterval(updateTable, 1000);
-    console.log("dupa");
+
+    run = true;
 }
 
 document.addEventListener('DOMContentLoaded', load);
