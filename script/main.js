@@ -3,16 +3,18 @@ var y;
 var table;
 var tableTemporary;
 var row;
+var timer;
 
 function load()
 {
     createTable();
-    displayTable();
-    var button = document.getElementById('button');
-    button.addEventListener('click', updateTable);
 
-    /*var element = document.getElementById('id00');
-    element.addEventListener('click', changeState);*/
+    var runButton = document.getElementById('run');
+    runButton.addEventListener('click', runFunction);
+    var reset = document.getElementById('reset');
+    reset.addEventListener('click', resetTable);
+    var cycle = document.getElementById('cycle');
+    cycle.addEventListener('click', updateTable);
 }
 
 function createTable()
@@ -20,17 +22,31 @@ function createTable()
     x = 10;
     y = 10;
     table = new Array(x);
+    tableTemporary = new Array(x);
     for (var i = 0; i < x; i++)
     {
         table[i] = new Array(y);
-    }
-    for (var j = 0; j < x; j++)
-    {
-        for (var k = 0; k < y; k++)
+        tableTemporary[i] = new Array(y);
+        for (var j = 0; j < y; j++)
         {
-            table[j][k] = 0;
+            table[i][j] = 0;
+            tableTemporary[i][j] = 0;
         }
     }
+    displayTable();
+}
+
+function resetTable()
+{
+    clearInterval(timer);
+    for (var i = 0; i < x; i++)
+    {
+        for (var j = 0; j < y; j++)
+        {
+            table[i][j] = 0;
+        }
+    }
+    setColor();
 }
 
 function updateTable()
@@ -72,13 +88,34 @@ function updateTable()
             {
                 count++;
             }
-            if (i === 1 && j === 1)
+            if (table[i][j] === 0 && count === 3)
             {
-                console.log(count);
+                tableTemporary[i][j] = 1;
+            }
+            else if (table[i][j] === 1 && (count === 2 || count === 3))
+            {
+                tableTemporary[i][j] = 1;
+            }
+            else
+            {
+                tableTemporary[i][j] = 0;
             }
             count = 0;
         }
     }
+    mergeTables();
+}
+
+function mergeTables()
+{
+    for (var i = 0; i < x; i++)
+    {
+        for (var j = 0; j < y; j++)
+        {
+            table[i][j] = tableTemporary[i][j];
+        }
+    }
+    setColor();
 }
 
 function displayTable()
@@ -128,6 +165,13 @@ function changeState(x, y)
         table[i][j] = 0;
     }
     setColor();
+}
+
+function runFunction()
+{
+    clearInterval(timer);
+    timer = setInterval(updateTable, 1000);
+    console.log("dupa");
 }
 
 document.addEventListener('DOMContentLoaded', load);

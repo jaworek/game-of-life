@@ -7,8 +7,9 @@
     <title>Game of Life</title>
     <link rel="stylesheet" href="css/normalize.css">
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
     <script src="script/main.js" charset="utf-8"></script>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400" rel="stylesheet">
 </head>
 
 <body>
@@ -20,16 +21,26 @@
 
         </section>
         <section class="buttons">
-            <button class="button" type="button" name="button" id="button">1 cycle</button>
-            <button class="button" type="button" name="button">10 cycles</button>
-            <button class="button" type="button" name="button">Run continuosly</button>
+            <button class="button" type="button" name="button" id="run">
+              <i class="fa fa-play" aria-hidden="true"></i> Run
+            </button>
+            <button class="button" type="button" name="button" id="reset">
+              <i class="fa fa-refresh" aria-hidden="true"></i> Reset
+            </button>
         </section>
-        <section>
-          test
+        <section class="buttons">
+            <button class="button" type="button" name="button" id="cycle">
+              1 cycle
+            </button>
+            <button class="button" type="button" name="button">
+              10 cycles
+            </button>
         </section>
     </main>
     <footer>
-        Created by <a href="https://github.com/jaworek" target="_blank"> Jawa</a>
+        <span>
+          Created by <a href="https://github.com/jaworek" target="_blank"> Jawa</a>
+        </span>
     </footer>
 </body>
 

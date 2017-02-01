@@ -19,25 +19,44 @@ body
 header
 {
     padding: 1em;
+
+    color: white;
+    background: rgb(171, 95, 16);
 }
 
 main
 {
-    padding: .5em;
-
     flex-flow: row wrap;
     justify-content: center;
     flex: 1;
 }
 
+footer
+{
+    display: flex;
 
+    padding: .75em;
+
+    color: white;
+    background: rgb(43, 175, 119);
+
+    align-items: center;
+    font-size: 18px;
+}
+
+a
+{
+  text-decoration: none;
+  color: rgb(222, 200, 0);
+  font-weight: 400;
+}
 
 .table
 {
     display: flex;
 
-    width: 20em;
-    height: 20em;
+    width: 100vw;
+    height: 100vw;
     margin-top: 2em;
     margin-right: auto;
     margin-bottom: 2em;
@@ -70,7 +89,6 @@ main
     display: flex;
 
     width: 100vw;
-    height: 2em;
 
     flex-flow: row wrap;
     justify-content: center;
@@ -78,7 +96,17 @@ main
 
 .button
 {
-    margin-right: .25em;
-    margin-left: .25em;
     width: 10em;
+    height: 2em;
+    margin: .25em;
+}
+
+/*desktop*/
+@media all and (min-width: 690px)
+{
+    .table
+    {
+        width: 30vw;
+        height: 30vw;
+    }
 }
