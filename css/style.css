@@ -33,6 +33,8 @@ main
 
 footer
 {
+    font-size: 18px;
+
     display: flex;
 
     padding: .75em;
@@ -41,14 +43,15 @@ footer
     background: rgb(43, 175, 119);
 
     align-items: center;
-    font-size: 18px;
 }
 
 a
 {
-  text-decoration: none;
-  color: rgb(222, 200, 0);
-  font-weight: 400;
+    font-weight: 400;
+
+    text-decoration: none;
+
+    color: rgb(222, 200, 0);
 }
 
 .table
@@ -69,19 +72,14 @@ a
 
 .cell
 {
-    width: 10%;
-    height: 10%;
+    width: 5%;
+    height: 5%;
 
     cursor: pointer;
     transition: .5s;
     text-align: center;
 
     border: 1px solid rgb(199, 199, 199);
-}
-
-.cell:hover
-{
-    filter: brightness(50%);
 }
 
 .buttons
@@ -108,5 +106,10 @@ a
     {
         width: 30vw;
         height: 30vw;
+    }
+
+    .cell:hover
+    {
+        filter: brightness(50%);
     }
 }
