@@ -54,42 +54,65 @@ function resetTable()
 function updateTable()
 {
     var count = 0;
-    for (var i = 1; i < x - 1; i++)
+    for (var i = 0; i < x; i++)
     {
-        for (var j = 1; j < y - 1; j++)
+        for (var j = 0; j < y; j++)
         {
-            if (table[i - 1][j] === 1)
+            var c = i - 1;
+            var d = j - 1;
+            var e = i + 1;
+            var f = j + 1;
+
+            if (i - 1 < 0)
+            {
+                c = x - 1;
+            }
+            if (i + 1 > x - 1)
+            {
+                e = 0;
+            }
+            if (j - 1 < 0)
+            {
+                d = y - 1;
+            }
+            if (j + 1 > x - 1)
+            {
+                f = 0;
+            }
+
+            if (table[c][j] === 1)
             {
                 count++;
             }
-            if (table[i + 1][j] === 1)
+            if (table[e][j] === 1)
             {
                 count++;
             }
-            if (table[i][j - 1] === 1)
+            if (table[i][d] === 1)
             {
                 count++;
             }
-            if (table[i][j + 1] === 1)
+            if (table[i][f] === 1)
             {
                 count++;
             }
-            if (table[i - 1][j - 1] === 1)
+            if (table[c][d] === 1)
             {
                 count++;
             }
-            if (table[i - 1][j + 1] === 1)
+            if (table[c][f] === 1)
             {
                 count++;
             }
-            if (table[i + 1][j - 1] === 1)
+            if (table[e][d] === 1)
             {
                 count++;
             }
-            if (table[i + 1][j + 1] === 1)
+            if (table[e][f] === 1)
             {
                 count++;
             }
+
             if (table[i][j] === 0 && count === 3)
             {
                 tableTemporary[i][j] = 1;
@@ -102,6 +125,7 @@ function updateTable()
             {
                 tableTemporary[i][j] = 0;
             }
+
             count = 0;
         }
     }
@@ -139,7 +163,7 @@ function displayTable()
 
 function setColor()
 {
-  var z = 0;
+    var z = 0;
     for (var i = 0; i < x; i++)
     {
         for (var j = 0; j < y; j++)
@@ -185,10 +209,19 @@ function changeState(x, y)
 
 function runFunction()
 {
-    clearInterval(timer);
-    timer = setInterval(updateTable, 1000);
+    if (run === false)
+    {
+        clearInterval(timer);
+        timer = setInterval(updateTable, 200);
 
-    run = true;
+        run = true;
+    }
+    else
+    {
+        clearInterval(timer);
+        run = false;
+        setColor();
+    }
 }
 
 document.addEventListener('DOMContentLoaded', load);
