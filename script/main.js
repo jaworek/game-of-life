@@ -16,6 +16,8 @@ function load()
     reset.addEventListener('click', resetTable);
     var cycle = document.getElementById('cycle');
     cycle.addEventListener('click', updateTable);
+    //var cycle10 = document.getElementById('cycle10');
+    //cycle10.addEventListener('click', updateTable * 10);
 }
 
 function createTable()
@@ -80,6 +82,7 @@ function updateTable()
                 f = 0;
             }
 
+            //Checking neighbours
             if (table[c][j] === 1)
             {
                 count++;
@@ -113,6 +116,7 @@ function updateTable()
                 count++;
             }
 
+            //Change state
             if (table[i][j] === 0 && count === 3)
             {
                 tableTemporary[i][j] = 1;
@@ -180,16 +184,6 @@ function setColor()
             z++;
         }
     }
-
-    var runButton = document.getElementById('run');
-    if (run === true)
-    {
-        runButton.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i> Pause';
-    }
-    if (run === false)
-    {
-        runButton.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i> Run';
-    }
 }
 
 function changeState(x, y)
@@ -207,6 +201,19 @@ function changeState(x, y)
     setColor();
 }
 
+function runButton()
+{
+    var runButton = document.getElementById('run');
+    if (run === true)
+    {
+        runButton.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i> Pause';
+    }
+    if (run === false)
+    {
+        runButton.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i> Run';
+    }
+}
+
 function runFunction()
 {
     if (run === false)
@@ -215,12 +222,13 @@ function runFunction()
         timer = setInterval(updateTable, 200);
 
         run = true;
+        runButton();
     }
     else
     {
         clearInterval(timer);
         run = false;
-        setColor();
+        runButton();
     }
 }
 
