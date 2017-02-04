@@ -45,13 +45,18 @@ footer
     align-items: center;
 }
 
-a
+.link
 {
     font-weight: 400;
 
     text-decoration: none;
 
     color: rgb(222, 200, 0);
+}
+
+.link:hover
+{
+    text-decoration: underline;
 }
 
 .table
