@@ -1,10 +1,11 @@
-var x;
-var y;
+var width;
+var height;
 var table;
 var tableTemporary;
 var row;
 var timer;
 var run = false;
+var generation = 1;
 
 function load()
 {
@@ -18,19 +19,21 @@ function load()
     cycle.addEventListener('click', updateTable);
     //var cycle10 = document.getElementById('cycle10');
     //cycle10.addEventListener('click', updateTable * 10);
+
+    document.getElementById('generation').innerHTML = generation;
 }
 
 function createTable()
 {
-    x = 20;
-    y = 20;
-    table = new Array(x);
-    tableTemporary = new Array(x);
-    for (var i = 0; i < x; i++)
+    width = 20;
+    height = 20;
+    table = new Array(width);
+    tableTemporary = new Array(width);
+    for (var i = 0; i < width; i++)
     {
-        table[i] = new Array(y);
-        tableTemporary[i] = new Array(y);
-        for (var j = 0; j < y; j++)
+        table[i] = new Array(height);
+        tableTemporary[i] = new Array(height);
+        for (var j = 0; j < height; j++)
         {
             table[i][j] = 0;
             tableTemporary[i][j] = 0;
@@ -42,23 +45,25 @@ function createTable()
 function resetTable()
 {
     clearInterval(timer);
-    for (var i = 0; i < x; i++)
+    for (var i = 0; i < width; i++)
     {
-        for (var j = 0; j < y; j++)
+        for (var j = 0; j < height; j++)
         {
             table[i][j] = 0;
         }
     }
     run = false;
     setColor();
+    generation = 1;
+    document.getElementById('generation').innerHTML = generation;
 }
 
 function updateTable()
 {
     var count = 0;
-    for (var i = 0; i < x; i++)
+    for (var i = 0; i < width; i++)
     {
-        for (var j = 0; j < y; j++)
+        for (var j = 0; j < height; j++)
         {
             var c = i - 1;
             var d = j - 1;
@@ -67,17 +72,17 @@ function updateTable()
 
             if (i - 1 < 0)
             {
-                c = x - 1;
+                c = width - 1;
             }
-            if (i + 1 > x - 1)
+            if (i + 1 > width - 1)
             {
                 e = 0;
             }
             if (j - 1 < 0)
             {
-                d = y - 1;
+                d = height - 1;
             }
-            if (j + 1 > x - 1)
+            if (j + 1 > width - 1)
             {
                 f = 0;
             }
@@ -134,13 +139,15 @@ function updateTable()
         }
     }
     mergeTables();
+    generation++;
+    document.getElementById('generation').innerHTML = generation;
 }
 
 function mergeTables()
 {
-    for (var i = 0; i < x; i++)
+    for (var i = 0; i < width; i++)
     {
-        for (var j = 0; j < y; j++)
+        for (var j = 0; j < height; j++)
         {
             table[i][j] = tableTemporary[i][j];
         }
@@ -151,14 +158,14 @@ function mergeTables()
 function displayTable()
 {
     row = '';
-    var z = 0;
-    for (var i = 0; i < x; i++)
+    var index = 0;
+    for (var i = 0; i < width; i++)
     {
-        for (var j = 0; j < y; j++)
+        for (var j = 0; j < height; j++)
         {
-            var id = 'id' + z;
+            var id = 'id' + index;
             row = row + '<div class="cell" id="' + id + '" onclick="changeState(' + i + ',' + j + ')"></div>';
-            z++;
+            index++;
         }
     }
     document.getElementById('table').innerHTML = row;
@@ -167,12 +174,12 @@ function displayTable()
 
 function setColor()
 {
-    var z = 0;
-    for (var i = 0; i < x; i++)
+    var index = 0;
+    for (var i = 0; i < width; i++)
     {
-        for (var j = 0; j < y; j++)
+        for (var j = 0; j < height; j++)
         {
-            var id = 'id' + z;
+            var id = 'id' + index;
             if (table[i][j] === 0)
             {
                 document.getElementById(id).style.backgroundColor = 'white';
@@ -181,15 +188,15 @@ function setColor()
             {
                 document.getElementById(id).style.backgroundColor = 'black';
             }
-            z++;
+            index++;
         }
     }
 }
 
-function changeState(x, y)
+function changeState(width, height)
 {
-    var i = x;
-    var j = y;
+    var i = width;
+    var j = height;
     if (table[i][j] === 0)
     {
         table[i][j] = 1;
