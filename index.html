@@ -18,38 +18,59 @@
         <h1>Game of Life</h1>
     </header>
     <main>
-        <section class="table" id="table">
+        <article class="main-feed">
+            <section class="game">
+                <div class="table" id="table">
 
-        </section>
-        <section class="buttons">
-            <button class="button" type="button" name="button" id="run">
+                </div>
+            </section>
+            <section class="buttons">
+                <button class="button" type="button" name="button" id="run">
               <i class="fa fa-play" aria-hidden="true"></i> Run
             </button>
-            <button class="button" type="button" name="button" id="reset">
+                <button class="button" type="button" name="button" id="reset">
               <i class="fa fa-refresh" aria-hidden="true"></i> Reset
             </button>
-        </section>
-        <section class="buttons">
-            <button class="button" type="button" name="button" id="cycle">
+            </section>
+            <section class="buttons">
+                <button class="button" type="button" name="button" id="cycle">
               1 cycle
             </button>
-            <button class="button" type="button" name="button" id="cycle10">
+                <button class="button" type="button" name="button" id="cycle10">
               10 cycles
             </button>
-        </section>
-        <aside class="aside, left">
+            </section>
+        </article>
+        <aside class="aside left">
             <p>Generation: <span id="generation"></span></p>
-            <p>Alive cells: </p>
-            <p>Dead cells: </p>
+            <p>Alive cells: <span id="alive"></span></p>
+            <p>Dead cells: <span id="dead"></span></p>
+            <p>Learn more about "Game of Life" on
+                <a class="link" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">
+                  Wikipedia
+                </a>
+            </p>
         </aside>
         <aside class="aside right">
-            <p>Rules: </p>
-            <p>Instructions: </p>
+            <h4>Rules:</h4>
+                <ol>
+                    <li>Any live cell with fewer than 2 live neighbours dies, as if caused by underpopulation.</li>
+                    <li>Any live cell with 2 or 3 live neighbours lives on to the next generation.</li>
+                    <li>Any live cell with more than 3 live neighbours dies, as if by overpopulation.</li>
+                    <li>Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.</li>
+                </ol>
+            <h4>Instructions:</h4>
+            <ul>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
         </aside>
     </main>
     <footer>
         <span>
-          Created by <a class="link" href="https://github.com/jaworek" target="_blank"> Jawa</a>
+          Created by <a class="link" href="https://github.com/jaworek" target="_blank">Jawa</a>
         </span>
     </footer>
 </body>
