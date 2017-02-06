@@ -26,9 +26,15 @@ header
 
 main
 {
+    display: flex;
+
     flex-flow: row wrap;
-    justify-content: center;
     flex: 1;
+}
+
+main > *
+{
+    flex: 1 100%;
 }
 
 footer
@@ -66,9 +72,7 @@ footer
     width: 100vw;
     height: 100vw;
     margin-top: 2em;
-    margin-right: auto;
     margin-bottom: 2em;
-    margin-left: auto;
 
     border: 2px solid black;
 
@@ -91,8 +95,6 @@ footer
 {
     display: flex;
 
-    width: 100vw;
-
     flex-flow: row wrap;
     justify-content: center;
 }
@@ -104,13 +106,78 @@ footer
     margin: .25em;
 }
 
-/*desktop*/
+.aside
+{
+    padding: 1em;
+    /*display: flex;
+    flex-flow: column;*/
+}
+
+/*tablet*/
 @media all and (min-width: 690px)
 {
+    main > *
+    {
+        flex: 1;
+    }
+
+    .game
+    {
+        display: flex;
+
+        width: 100vw;
+
+        justify-content: center;
+    }
     .table
     {
-        width: 30vw;
-        height: 30vw;
+        width: 80vw;
+        height: 80vw;
+    }
+}
+
+/*desktop*/
+@media all and (min-width: 1100px)
+{
+    main > *
+    {
+        flex: 1 0 auto;
+    }
+
+    .main-feed
+    {
+        order: 1;
+    }
+
+    .game
+    {
+        width: auto;
+    }
+
+    .table
+    {
+        width: 40vw;
+        height: 40vw;
+    }
+
+    .aside
+    {
+        width: 20vw;
+    }
+
+    .left
+    {
+        order: 0;
+    }
+
+    .right
+    {
+        order: 2;
+    }
+
+    .buttons
+    {
+        order: 3;
     }
 
     .cell:hover
