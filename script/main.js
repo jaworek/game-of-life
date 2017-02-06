@@ -7,6 +7,7 @@ var timer;
 var run = false;
 var generation = 1;
 
+
 function load()
 {
     createTable();
@@ -54,6 +55,7 @@ function resetTable()
     }
     run = false;
     setColor();
+    runButton();
     generation = 1;
     document.getElementById('generation').innerHTML = generation;
 }
@@ -175,6 +177,8 @@ function displayTable()
 function setColor()
 {
     var index = 0;
+    var alive = 0;
+    var dead = 0;
     for (var i = 0; i < width; i++)
     {
         for (var j = 0; j < height; j++)
@@ -183,11 +187,15 @@ function setColor()
             if (table[i][j] === 0)
             {
                 document.getElementById(id).style.backgroundColor = 'white';
+                dead++;
             }
             else if (table[i][j] === 1)
             {
                 document.getElementById(id).style.backgroundColor = 'black';
+                alive++;
             }
+            document.getElementById('dead').innerHTML = dead;
+            document.getElementById('alive').innerHTML = alive;
             index++;
         }
     }
