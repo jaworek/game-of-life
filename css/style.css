@@ -37,6 +37,12 @@ main > *
     flex: 1 100%;
 }
 
+li
+{
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
 footer
 {
     font-size: 18px;
