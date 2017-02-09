@@ -2,9 +2,8 @@ var width;
 var height;
 var table;
 var tableTemporary;
-var row;
 var timer;
-var run = false;
+var run = true;
 var generation = 1;
 
 
@@ -28,6 +27,8 @@ function createTable()
 {
     width = 20;
     height = 20;
+    var row = '';
+    var index = 0;
     table = new Array(width);
     tableTemporary = new Array(width);
     for (var i = 0; i < width; i++)
@@ -38,9 +39,13 @@ function createTable()
         {
             table[i][j] = 0;
             tableTemporary[i][j] = 0;
+            var id = 'id' + index;
+            row = row + '<div class="cell" id="' + id + '" onclick="changeState(' + i + ',' + j + ')"></div>';
+            index++;
         }
     }
-    displayTable();
+    document.getElementById('table').innerHTML = row;
+    setColor();
 }
 
 function resetTable()
@@ -55,7 +60,7 @@ function resetTable()
     }
     run = false;
     setColor();
-    runButton();
+    runFunction();
     generation = 1;
     document.getElementById('generation').innerHTML = generation;
 }
@@ -72,19 +77,19 @@ function updateTable()
             var e = i + 1;
             var f = j + 1;
 
-            if (i - 1 < 0)
+            if (c < 0)
             {
                 c = width - 1;
             }
-            if (i + 1 > width - 1)
+            if (e > width - 1)
             {
                 e = 0;
             }
-            if (j - 1 < 0)
+            if (d < 0)
             {
                 d = height - 1;
             }
-            if (j + 1 > width - 1)
+            if (f > width - 1)
             {
                 f = 0;
             }
@@ -157,23 +162,6 @@ function mergeTables()
     setColor();
 }
 
-function displayTable()
-{
-    row = '';
-    var index = 0;
-    for (var i = 0; i < width; i++)
-    {
-        for (var j = 0; j < height; j++)
-        {
-            var id = 'id' + index;
-            row = row + '<div class="cell" id="' + id + '" onclick="changeState(' + i + ',' + j + ')"></div>';
-            index++;
-        }
-    }
-    document.getElementById('table').innerHTML = row;
-    setColor();
-}
-
 function setColor()
 {
     var index = 0;
@@ -216,34 +204,22 @@ function changeState(width, height)
     setColor();
 }
 
-function runButton()
-{
-    var runButton = document.getElementById('run');
-    if (run === true)
-    {
-        runButton.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i> Pause';
-    }
-    if (run === false)
-    {
-        runButton.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i> Run';
-    }
-}
-
 function runFunction()
 {
-    if (run === false)
+    var runButton = document.getElementById('run');
+    if (run)
     {
         clearInterval(timer);
         timer = setInterval(updateTable, 200);
 
-        run = true;
-        runButton();
+        run = false;
+        runButton.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i> Pause';
     }
     else
     {
         clearInterval(timer);
-        run = false;
-        runButton();
+        run = true;
+        runButton.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i> Run';
     }
 }
 
