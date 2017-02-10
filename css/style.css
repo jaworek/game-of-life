@@ -39,8 +39,8 @@ main > *
 
 li
 {
-  margin-top: 0.5em;
-  margin-bottom: 0.5em;
+    margin-top: .5em;
+    margin-bottom: .5em;
 }
 
 footer
@@ -93,6 +93,7 @@ footer
     text-align: center;
 
     border: 1px solid rgb(199, 199, 199);
+    background-color: white;
 }
 
 .buttons
