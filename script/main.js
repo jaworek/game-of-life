@@ -5,7 +5,8 @@ var tableTemporary;
 var timer;
 var run = true;
 var generation = 1;
-
+var alive;
+var dead;
 
 function load()
 {
@@ -18,9 +19,7 @@ function load()
     var cycle = document.getElementById('cycle');
     cycle.addEventListener('click', updateTable);
     //var cycle10 = document.getElementById('cycle10');
-    //cycle10.addEventListener('click', updateTable * 10);
-
-    document.getElementById('generation').innerHTML = generation;
+    //cycle10.addEventListener('click', howMany(10));
 }
 
 function createTable()
@@ -29,11 +28,11 @@ function createTable()
     height = 20;
     var row = '';
     var index = 0;
-    table = new Array(width);
+    table = [];
     tableTemporary = new Array(width);
     for (var i = 0; i < width; i++)
     {
-        table[i] = new Array(height);
+        table[i] = [];
         tableTemporary[i] = new Array(height);
         for (var j = 0; j < height; j++)
         {
@@ -45,7 +44,17 @@ function createTable()
         }
     }
     document.getElementById('table').innerHTML = row;
-    setColor();
+
+    alive = 0;
+    dead = width * height;
+    displayInformation();
+}
+
+function displayInformation()
+{
+    document.getElementById('generation').innerHTML = generation;
+    document.getElementById('alive').innerHTML = alive;
+    document.getElementById('dead').innerHTML = dead;
 }
 
 function resetTable()
@@ -56,18 +65,22 @@ function resetTable()
         for (var j = 0; j < height; j++)
         {
             table[i][j] = 0;
+            setColor(i, j);
         }
     }
     run = false;
-    setColor();
     runFunction();
     generation = 1;
-    document.getElementById('generation').innerHTML = generation;
+    alive = 0;
+    dead = width * height;
+    displayInformation();
 }
 
 function updateTable()
 {
-    var count = 0;
+    var neighbor = 0;
+    alive = 0;
+    dead = 0;
     for (var i = 0; i < width; i++)
     {
         for (var j = 0; j < height; j++)
@@ -97,57 +110,60 @@ function updateTable()
             //Checking neighbours
             if (table[c][j] === 1)
             {
-                count++;
+                neighbor++;
             }
             if (table[e][j] === 1)
             {
-                count++;
+                neighbor++;
             }
             if (table[i][d] === 1)
             {
-                count++;
+                neighbor++;
             }
             if (table[i][f] === 1)
             {
-                count++;
+                neighbor++;
             }
             if (table[c][d] === 1)
             {
-                count++;
+                neighbor++;
             }
             if (table[c][f] === 1)
             {
-                count++;
+                neighbor++;
             }
             if (table[e][d] === 1)
             {
-                count++;
+                neighbor++;
             }
             if (table[e][f] === 1)
             {
-                count++;
+                neighbor++;
             }
 
             //Change state
-            if (table[i][j] === 0 && count === 3)
+            if (table[i][j] === 0 && neighbor === 3)
             {
                 tableTemporary[i][j] = 1;
+                alive++;
             }
-            else if (table[i][j] === 1 && (count === 2 || count === 3))
+            else if (table[i][j] === 1 && (neighbor === 2 || neighbor === 3))
             {
                 tableTemporary[i][j] = 1;
+                alive++;
             }
             else
             {
                 tableTemporary[i][j] = 0;
+                dead++;
             }
 
-            count = 0;
+            neighbor = 0;
         }
     }
-    mergeTables();
     generation++;
-    document.getElementById('generation').innerHTML = generation;
+    mergeTables();
+    displayInformation();
 }
 
 function mergeTables()
@@ -157,51 +173,41 @@ function mergeTables()
         for (var j = 0; j < height; j++)
         {
             table[i][j] = tableTemporary[i][j];
+            setColor(i, j);
         }
     }
-    setColor();
 }
 
-function setColor()
+function setColor(i, j)
 {
-    var index = 0;
-    var alive = 0;
-    var dead = 0;
-    for (var i = 0; i < width; i++)
+    var index = i * width + j;
+    var id = 'id' + index;
+    if (table[i][j] === 0)
     {
-        for (var j = 0; j < height; j++)
-        {
-            var id = 'id' + index;
-            if (table[i][j] === 0)
-            {
-                document.getElementById(id).style.backgroundColor = 'white';
-                dead++;
-            }
-            else if (table[i][j] === 1)
-            {
-                document.getElementById(id).style.backgroundColor = 'black';
-                alive++;
-            }
-            document.getElementById('dead').innerHTML = dead;
-            document.getElementById('alive').innerHTML = alive;
-            index++;
-        }
+        document.getElementById(id).style.backgroundColor = 'white';
+    }
+    else if (table[i][j] === 1)
+    {
+        document.getElementById(id).style.backgroundColor = 'black';
     }
 }
 
-function changeState(width, height)
+function changeState(i, j)
 {
-    var i = width;
-    var j = height;
     if (table[i][j] === 0)
     {
         table[i][j] = 1;
+        alive++;
+        dead--;
     }
     else if (table[i][j] === 1)
     {
         table[i][j] = 0;
+        alive--;
+        dead++;
     }
-    setColor();
+    setColor(i, j);
+    displayInformation();
 }
 
 function runFunction()
