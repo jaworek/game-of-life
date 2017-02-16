@@ -1,25 +1,34 @@
 var width;
 var height;
 var table;
-var tableTemporary;
 var timer;
 var run = true;
-var generation = 1;
 var alive;
 var dead;
+var g = 0;
 
 function load()
 {
     createTable();
 
+    document.getElementById('previous').disabled = true;
+
     var runButton = document.getElementById('run');
     runButton.addEventListener('click', runFunction);
     var reset = document.getElementById('reset');
     reset.addEventListener('click', resetTable);
-    var cycle = document.getElementById('cycle');
-    cycle.addEventListener('click', updateTable);
-    //var cycle10 = document.getElementById('cycle10');
-    //cycle10.addEventListener('click', howMany(10));
+    var next = document.getElementById('next');
+    next.addEventListener('click', nextGeneration);
+    var previous = document.getElementById('previous');
+    previous.addEventListener('click', previousGeneration);
+    var go = document.getElementById('go');
+    go.addEventListener('click', goTest);
+}
+
+function goTest()
+{
+    var value = document.getElementById('test').value;
+    console.log(value);
 }
 
 function createTable()
@@ -29,15 +38,13 @@ function createTable()
     var row = '';
     var index = 0;
     table = [];
-    tableTemporary = new Array(width);
     for (var i = 0; i < width; i++)
     {
         table[i] = [];
-        tableTemporary[i] = new Array(height);
         for (var j = 0; j < height; j++)
         {
-            table[i][j] = 0;
-            tableTemporary[i][j] = 0;
+            table[i][j] = [];
+            table[i][j][g] = 0;
             var id = 'id' + index;
             row = row + '<div class="cell" id="' + id + '" onclick="changeState(' + i + ',' + j + ')"></div>';
             index++;
@@ -52,24 +59,41 @@ function createTable()
 
 function displayInformation()
 {
-    document.getElementById('generation').innerHTML = generation;
+    document.getElementById('generation').innerHTML = g + 1;
     document.getElementById('alive').innerHTML = alive;
     document.getElementById('dead').innerHTML = dead;
 }
 
+function previousGeneration()
+{
+    g--;
+    mergeTables();
+    if (g === 0)
+    {
+        document.getElementById('previous').disabled = true;
+    }
+    displayInformation();
+}
+
+function nextGeneration()
+{
+    updateTable();
+    document.getElementById('previous').disabled = false;
+}
+
 function resetTable()
 {
-    clearInterval(timer);
+    g = 0;
+    run = false;
+    runFunction();
     for (var i = 0; i < width; i++)
     {
         for (var j = 0; j < height; j++)
         {
-            table[i][j] = 0;
+            table[i][j][g] = 0;
             setColor(i, j);
         }
     }
-    run = false;
-    runFunction();
     generation = 1;
     alive = 0;
     dead = width * height;
@@ -108,60 +132,59 @@ function updateTable()
             }
 
             //Checking neighbours
-            if (table[c][j] === 1)
+            if (table[c][j][g] === 1)
             {
                 neighbor++;
             }
-            if (table[e][j] === 1)
+            if (table[e][j][g] === 1)
             {
                 neighbor++;
             }
-            if (table[i][d] === 1)
+            if (table[i][d][g] === 1)
             {
                 neighbor++;
             }
-            if (table[i][f] === 1)
+            if (table[i][f][g] === 1)
             {
                 neighbor++;
             }
-            if (table[c][d] === 1)
+            if (table[c][d][g] === 1)
             {
                 neighbor++;
             }
-            if (table[c][f] === 1)
+            if (table[c][f][g] === 1)
             {
                 neighbor++;
             }
-            if (table[e][d] === 1)
+            if (table[e][d][g] === 1)
             {
                 neighbor++;
             }
-            if (table[e][f] === 1)
+            if (table[e][f][g] === 1)
             {
                 neighbor++;
             }
 
             //Change state
-            if (table[i][j] === 0 && neighbor === 3)
+            if (table[i][j][g] === 0 && neighbor === 3)
             {
-                tableTemporary[i][j] = 1;
+                table[i][j][g + 1] = 1;
                 alive++;
             }
-            else if (table[i][j] === 1 && (neighbor === 2 || neighbor === 3))
+            else if (table[i][j][g] === 1 && (neighbor === 2 || neighbor === 3))
             {
-                tableTemporary[i][j] = 1;
+                table[i][j][g + 1] = 1;
                 alive++;
             }
             else
             {
-                tableTemporary[i][j] = 0;
+                table[i][j][g + 1] = 0;
                 dead++;
             }
-
             neighbor = 0;
         }
     }
-    generation++;
+    g++;
     mergeTables();
     displayInformation();
 }
@@ -172,7 +195,6 @@ function mergeTables()
     {
         for (var j = 0; j < height; j++)
         {
-            table[i][j] = tableTemporary[i][j];
             setColor(i, j);
         }
     }
@@ -182,11 +204,11 @@ function setColor(i, j)
 {
     var index = i * width + j;
     var id = 'id' + index;
-    if (table[i][j] === 0)
+    if (table[i][j][g] === 0)
     {
         document.getElementById(id).style.backgroundColor = 'white';
     }
-    else if (table[i][j] === 1)
+    else if (table[i][j][g] === 1)
     {
         document.getElementById(id).style.backgroundColor = 'black';
     }
@@ -194,15 +216,15 @@ function setColor(i, j)
 
 function changeState(i, j)
 {
-    if (table[i][j] === 0)
+    if (table[i][j][g] === 0)
     {
-        table[i][j] = 1;
+        table[i][j][g] = 1;
         alive++;
         dead--;
     }
-    else if (table[i][j] === 1)
+    else if (table[i][j][g] === 1)
     {
-        table[i][j] = 0;
+        table[i][j][g] = 0;
         alive--;
         dead++;
     }
@@ -220,12 +242,19 @@ function runFunction()
 
         run = false;
         runButton.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i> Pause';
+        document.getElementById('previous').disabled = true;
+        document.getElementById('next').disabled = true;
     }
     else
     {
         clearInterval(timer);
         run = true;
         runButton.innerHTML = '<i class="fa fa-play" aria-hidden="true"></i> Run';
+        if (g !== 0)
+        {
+            document.getElementById('previous').disabled = false;
+        }
+        document.getElementById('next').disabled = false;
     }
 }
 

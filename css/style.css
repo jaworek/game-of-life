@@ -18,7 +18,7 @@ body
 
 header
 {
-    padding: 1em;
+    padding: .4em;
 
     color: white;
     background: rgb(171, 95, 16);
@@ -153,6 +153,8 @@ footer
 
     .main-feed
     {
+        padding: 1em;
+
         order: 1;
     }
 

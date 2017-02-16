@@ -15,7 +15,7 @@
 
 <body>
     <header>
-        <h1>Game of Life</h1>
+        <h2>Game of Life (Work in progress)</h2>
     </header>
     <main>
         <article class="main-feed">
@@ -31,11 +31,13 @@
             </button>
             </section>
             <section class="buttons">
-                <button class="button" type="button" name="button" id="previous-cycle">
-                  <i class="fa fa-arrow-left" aria-hidden="true"></i> Previous cycle
+                <button class="button" type="button" name="button" id="previous">
+                  <i class="fa fa-arrow-left" aria-hidden="true"></i>
+                  Previous cycle
               </button>
-                <button class="button" type="button" name="button" id="cycle">
-              Next cycle <i class="fa fa-arrow-right" aria-hidden="true"></i>
+                <button class="button" type="button" name="button" id="next">
+              Next cycle
+              <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
             </section>
         </article>
@@ -44,9 +46,21 @@
             <p>Alive cells: <span id="alive"></span></p>
             <p>Dead cells: <span id="dead"></span></p>
             <p>Learn more about "Game of Life" on
-                <a class="link" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">
+                <a class="link" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
                   Wikipedia
                 </a>
+            </p>
+            <p>
+                <input type="text" name="" value="" placeholder="interval">
+                <button type="button" name="button">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button>
+            </p>
+            <p>
+                <input type="number" name="" value="1" placeholder="Jump to generation" id="test">
+                <button type="button" name="button" id="go">
+                  <i class="fa fa-check" aria-hidden="true"></i>
+                </button>
             </p>
         </aside>
         <aside class="aside right">
