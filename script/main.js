@@ -6,29 +6,28 @@ var run = true;
 var alive;
 var dead;
 var g = 0;
+var interval = 200;
 
 function load()
 {
     createTable();
 
     document.getElementById('previous').disabled = true;
+    document.getElementById('interval').value = interval;
 
     var runButton = document.getElementById('run');
-    runButton.addEventListener('click', runFunction);
+    runButton.addEventListener('click', function()
+    {
+        runFunction();
+    });
     var reset = document.getElementById('reset');
     reset.addEventListener('click', resetTable);
     var next = document.getElementById('next');
     next.addEventListener('click', nextGeneration);
     var previous = document.getElementById('previous');
     previous.addEventListener('click', previousGeneration);
-    var go = document.getElementById('go');
-    go.addEventListener('click', goTest);
-}
-
-function goTest()
-{
-    var value = document.getElementById('test').value;
-    console.log(value);
+    var random = document.getElementById('random');
+    random.addEventListener('click', randomFill);
 }
 
 function createTable()
@@ -68,7 +67,7 @@ function previousGeneration()
 {
     g--;
     mergeTables();
-    if (g === 0)
+    if (g <= 0)
     {
         document.getElementById('previous').disabled = true;
     }
@@ -94,9 +93,36 @@ function resetTable()
             setColor(i, j);
         }
     }
-    generation = 1;
     alive = 0;
     dead = width * height;
+    displayInformation();
+    document.getElementById('previous').disabled = true;
+}
+
+function randomFill()
+{
+    g = 0;
+    alive = 0;
+    dead = 0;
+    run = false;
+    runFunction();
+    for (var i = 0; i < width; i++)
+    {
+        for (var j = 0; j < height; j++)
+        {
+            var state = Math.floor(Math.random() * 2);
+            table[i][j][g] = state;
+            setColor(i, j);
+            if (state === 0)
+            {
+                dead++;
+            }
+            else
+            {
+                alive++;
+            }
+        }
+    }
     displayInformation();
 }
 
@@ -237,13 +263,16 @@ function runFunction()
     var runButton = document.getElementById('run');
     if (run)
     {
+        interval = document.getElementById('interval').value;
         clearInterval(timer);
-        timer = setInterval(updateTable, 200);
+        timer = setInterval(updateTable, interval);
 
         run = false;
         runButton.innerHTML = '<i class="fa fa-pause" aria-hidden="true"></i> Pause';
         document.getElementById('previous').disabled = true;
         document.getElementById('next').disabled = true;
+        document.getElementById('interval').disabled = true;
+        document.getElementById('random').disabled = true;
     }
     else
     {
@@ -255,6 +284,8 @@ function runFunction()
             document.getElementById('previous').disabled = false;
         }
         document.getElementById('next').disabled = false;
+        document.getElementById('interval').disabled = false;
+        document.getElementById('random').disabled = false;
     }
 }
 

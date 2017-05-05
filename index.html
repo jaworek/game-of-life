@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head lang="en">
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Game of Life</title>
@@ -42,6 +42,7 @@
             </section>
         </article>
         <aside class="aside left">
+            <h4>Statistics:</h4>
             <p>Generation: <span id="generation"></span></p>
             <p>Alive cells: <span id="alive"></span></p>
             <p>Dead cells: <span id="dead"></span></p>
@@ -50,17 +51,25 @@
                   Wikipedia
                 </a>
             </p>
+            <h4>Settings:</h4>
             <p>
-                <input type="text" name="" value="" placeholder="interval">
+                <input type="text" name="" value="" placeholder="generation">
                 <button type="button" name="button">
                   <i class="fa fa-check" aria-hidden="true"></i>
                 </button>
             </p>
             <p>
-                <input type="number" name="" value="1" placeholder="Jump to generation" id="test">
-                <button type="button" name="button" id="go">
-                  <i class="fa fa-check" aria-hidden="true"></i>
-                </button>
+                <span>Interval: </span>
+                <input type="number" name="" id="interval">
+                <span>ms</span>
+            </p>
+            <p>
+                <span>Dimensions: </span><span>X: </span><span>Y: </span>
+            </p>
+            <p>
+                <button class="button" type="button" name="button" id="random">
+                  <i class="fa fa-random" aria-hidden="true"></i> Random fill
+              </button>
             </p>
         </aside>
         <aside class="aside right">
