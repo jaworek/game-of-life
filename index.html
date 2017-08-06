@@ -2,99 +2,104 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Game of Life</title>
-    <link rel="stylesheet" href="css/normalize.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
-    <script src="script/main.js" charset="utf-8"></script>
-    <link rel="shortcut icon" href="favicon.ico">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Game of Life</title>
+
+  <!-- stylesheets -->
+  <link rel="stylesheet" href="css/style.min.css">
+  <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+
+  <!-- fonts -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400">
+  <script src="script/main.js" charset="utf-8"></script>
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="favicon.ico">
 </head>
 
 <body>
-    <header>
-        <h2>Game of Life (Work in progress)</h2>
-    </header>
-    <main>
-        <article class="main-feed">
-            <section class="game">
-                <div class="table" id="table"></div>
-            </section>
-            <section class="buttons">
-                <button class="button" type="button" name="button" id="run">
+  <header>
+    <h2>Game of Life (Work in progress)</h2>
+  </header>
+  <div class="container">
+    <main class="main-feed">
+      <section class="game">
+        <div class="table" id="table"></div>
+      </section>
+      <section class="buttons">
+        <button class="button" type="button" name="button" id="run">
               <i class="fa fa-play" aria-hidden="true"></i> Run
             </button>
-                <button class="button" type="button" name="button" id="reset">
+        <button class="button" type="button" name="button" id="reset">
               <i class="fa fa-refresh" aria-hidden="true"></i> Reset
             </button>
-            </section>
-            <section class="buttons">
-                <button class="button" type="button" name="button" id="previous">
+      </section>
+      <section class="buttons">
+        <button class="button" type="button" name="button" id="previous">
                   <i class="fa fa-arrow-left" aria-hidden="true"></i>
                   Previous cycle
               </button>
-                <button class="button" type="button" name="button" id="next">
+        <button class="button" type="button" name="button" id="next">
               Next cycle
               <i class="fa fa-arrow-right" aria-hidden="true"></i>
             </button>
-            </section>
-        </article>
-        <aside class="aside left">
-            <h4>Statistics:</h4>
-            <p>Generation: <span id="generation"></span></p>
-            <p>Alive cells: <span id="alive"></span></p>
-            <p>Dead cells: <span id="dead"></span></p>
-            <p>Learn more about "Game of Life" on
-                <a class="link" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
+      </section>
+    </main>
+    <aside class="aside left">
+      <h4>Statistics:</h4>
+      <p>Generation: <span id="generation"></span></p>
+      <p>Alive cells: <span id="alive"></span></p>
+      <p>Dead cells: <span id="dead"></span></p>
+      <p>Learn more about "Game of Life" on
+        <a class="link" href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life" target="_blank">
                   Wikipedia
                 </a>
-            </p>
-            <h4>Settings:</h4>
-            <p>
-                <input type="text" name="" value="" placeholder="generation">
-                <button type="button" name="button">
+      </p>
+      <h4>Settings:</h4>
+      <p>
+        <input type="text" name="" value="" placeholder="generation">
+        <button type="button" name="button">
                   <i class="fa fa-check" aria-hidden="true"></i>
                 </button>
-            </p>
-            <p>
-                <span>Interval: </span>
-                <input type="number" name="" id="interval">
-                <span>ms</span>
-            </p>
-            <p>
-                <span>Dimensions: </span><span>X: </span><span>Y: </span>
-            </p>
-            <p>
-                <button class="button" type="button" name="button" id="random">
+      </p>
+      <p>
+        <span>Interval: </span>
+        <input type="number" name="" id="interval">
+        <span>ms</span>
+      </p>
+      <p>
+        <span>Dimensions: </span><span>X: </span><span>Y: </span>
+      </p>
+      <p>
+        <button class="button" type="button" name="button" id="random">
                   <i class="fa fa-random" aria-hidden="true"></i> Random fill
               </button>
-            </p>
-        </aside>
-        <aside class="aside right">
-            <h4>Rules:</h4>
-            <ol>
-                <li>Any live cell with fewer than 2 live neighbours dies, as if caused by underpopulation.</li>
-                <li>Any live cell with 2 or 3 live neighbours lives on to the next generation.</li>
-                <li>Any live cell with more than 3 live neighbours dies, as if by overpopulation.</li>
-                <li>Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.</li>
-            </ol>
-            <h4>Instructions:</h4>
-            <ul>
-                <li>Click/Tap on the cells in the table to change their state from dead to alive.</li>
-                <li>Click "Run" button to start a automatic run of the cycle.</li>
-                <li>Click "1 cycle" button to run exactly one generation of the game.</li>
-                <li>Click "10 cycles" button to run exactly ten generations of the game.</li>
-                <li>Click "Reset" button to clear the table and information about current run.</li>
-            </ul>
-        </aside>
-    </main>
-    <footer>
-        <span>
+      </p>
+    </aside>
+    <aside class="aside right">
+      <h4>Rules:</h4>
+      <ol>
+        <li>Any live cell with fewer than 2 live neighbours dies, as if caused by underpopulation.</li>
+        <li>Any live cell with 2 or 3 live neighbours lives on to the next generation.</li>
+        <li>Any live cell with more than 3 live neighbours dies, as if by overpopulation.</li>
+        <li>Any dead cell with exactly 3 live neighbours becomes a live cell, as if by reproduction.</li>
+      </ol>
+      <h4>Instructions:</h4>
+      <ul>
+        <li>Click/Tap on the cells in the table to change their state from dead to alive.</li>
+        <li>Click "Run" button to start a automatic run of the cycle.</li>
+        <li>Click "1 cycle" button to run exactly one generation of the game.</li>
+        <li>Click "10 cycles" button to run exactly ten generations of the game.</li>
+        <li>Click "Reset" button to clear the table and information about current run.</li>
+      </ul>
+    </aside>
+  </div>
+  <footer>
+    <span>
           Created by <a class="link" href="https://github.com/jaworek" target="_blank">Jawa</a>
         </span>
-    </footer>
+  </footer>
 </body>
 
 </html>
